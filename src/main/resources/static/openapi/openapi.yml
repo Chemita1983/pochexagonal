@@ -1,0 +1,157 @@
+swagger: '2.0'
+info:
+  description: This is an API check if manual signature is possible
+  version: 1.0.0
+  title: Sign API
+  contact:
+    name: Pangea
+host: api-cloud-micosp.soe.cloud.si.orange.es
+basePath: /v1
+schemes:
+  - https
+tags:
+  - name: signature-type
+    description: Operations related to manual signature validation
+paths:
+  /signature/signatureTypeAllowed:
+    get:
+      operationId: getSignatureTypeAllowed
+      tags:
+        - signature-type
+      description: Operation indicating whether manual signature can be performed
+      parameters:
+        - name: documentType
+          in: query
+          description: Type of the document to be signed
+          required: true
+          type: string
+          enum:
+            - "NIF"
+            - "CIF"
+            - "TARJETA DE RESIDENCIA"
+            - "PASAPORTE"
+            - "OTHERS"
+            - "TODOS"
+          minLength: 3
+          maxLength: 20
+          x-example: "NIF"
+        - name: commercialAct
+          in: query
+          description: Type(s) of the commercial act (now an array)
+          required: true
+          type: array
+          items:
+            type: string
+            enum:
+              - "alta"
+              - "renove"
+              - "cambiotarifa"
+              - "migracion"
+              - "portabilidad"
+              - "modification"
+              - "TODOS"
+            minLength: 4
+            maxLength: 20
+          x-example:
+            - "alta"
+            - "portabilidad"
+        - name: nationality
+          in: query
+          description: Nationality of the individual or entity
+          required: true
+          type: string
+          minLength: 3
+          maxLength: 20
+          x-example: "España"
+        - name: segment
+          in: query
+          description: Segment or category of the request
+          required: true
+          type: string
+          enum:
+            - "residencial"
+            - "autonomo"
+            - "empresa"
+            - "TODOS"
+          minLength: 5
+          maxLength: 20
+          x-example: "residencial"
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Signature'
+          examples:
+            application/json:
+              allowedManualSignature: true
+              allowedDigitalSignature: true
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+          examples:
+            application/json:
+              code: "400"
+              message: "Invalid request parameters"
+              description: "The documentType parameter is missing or invalid."
+              infoUrl: "https://api-docs.example.com/errors/400"
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+          examples:
+            application/json:
+              code: "401"
+              message: "Unauthorized request"
+              description: "Authentication credentials are missing or invalid."
+              infoUrl: "https://api-docs.example.com/errors/401"
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+          examples:
+            application/json:
+              code: "403"
+              message: "Forbidden access"
+              description: "You do not have permission to access this resource."
+              infoUrl: "https://api-docs.example.com/errors/403"
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+          examples:
+            application/json:
+              code: "500"
+              message: "Internal server error"
+              description: "An unexpected error occurred on the server."
+              infoUrl: "https://api-docs.example.com/errors/500"
+definitions:
+  Signature:
+    type: object
+    properties:
+      allowedManualSignature:
+        type: boolean
+        description: Whether manual signing is permitted
+      allowedDigitalSignature:
+        type: boolean
+        description: Whether digital signing is permitted
+  ErrorMessage:
+    type: object
+    properties:
+      code:
+        type: string
+        description: A unique error code identifying the issue.
+      message:
+        type: string
+        description: message of the error.
+      description:
+        type: string
+        description: Detailed description of the error.
+      infoUrl:
+        type: string
+        description: info url.
+    required:
+      - code
+      - message
+      - description
+      - infoUrl

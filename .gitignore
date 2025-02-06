@@ -1,0 +1,43 @@
+# .gitignore para un proyecto Java Spring Boot con IntelliJ IDEA
+
+# Archivos de dependencias de Maven
+/.mvn
+/mvnw
+/mvnw.cmd
+/target/
+
+# Archivos de dependencias de Gradle
+/.gradle
+/build/
+
+# Archivos de configuración de IntelliJ IDEA
+.idea/
+*.iml
+
+# Archivos de configuración específicos del sistema operativo
+.DS_Store
+Thumbs.db
+
+# Archivos de configuración de JetBrains (IDE)
+.idea/
+*.ipr
+*.iws
+*.iml
+
+# Archivos generados por Spring Boot
+*.log
+*.out
+spring-boot-devtools.jar
+
+# Archivos de caché de la compilación de Maven o Gradle
+*.class
+
+# Archivos de log
+logs/
+*.log
+
+# Archivos de configuraciones locales de la IDE
+/.idea/
+
+# Directorios temporales de compilación
+/out/
