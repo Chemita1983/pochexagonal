@@ -1,2 +1,0 @@
-# shoppingcart
-Orange Signature Microservice
