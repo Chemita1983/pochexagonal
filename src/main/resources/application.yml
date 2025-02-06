@@ -1,0 +1,67 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: shoppingcart
+  web:
+    resources:
+      static-locations: classpath:/static/
+  jpa:
+    hibernate:
+      ddl-auto: update
+      dialect: org.hibernate.dialect.H2Dialect
+  h2:
+    console:
+      enabled: false
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:memdb;DB_CLOSE_ON_EXIT=TRUE;MODE=PostgreSQL
+    username: sa
+    password: sa
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+    urls:
+      - url: /openapi/openapi.yml
+        name: Signature Api
+openapi:
+  swagger:
+    api:
+      info:
+        path: /swagger-ui.html
+        title: Signature REST API
+        description: REST API Documentation for Signature.
+        version: API TOS
+        terms: Terms of service
+        license: License of API
+        licenseUrl: http://url_license.com
+        contact:
+          name: Orange API Team
+          url: www.orange.com
+          email: openapi@orange.com
+  feign:
+    jwt:
+      rely-enabled: true
+  security:
+    jwt:
+      publicKey: |
+        -----BEGIN PUBLIC KEY-----
+        MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnEzdW2JkmbrjhjtO8mxWC522ID7UkfdzwHh8dH+LTR31bS5oF4GjoDOXqvJ2KrVtWhtzJ40GTFnBbCVXl+z1jBmA6lmEzQDP9GYJcE+pKLyw7ga5eJdbk6C/j4f4CnGXt02HPHFKjhqn8HBp4q6AbhYEU3qjaoDX7sVoYbcCK7543Ze6mSk6gnSd++h2RFhMvVxEcPDfmvzaMC1tEgx44HzPbEH0twjYoSg2hIFolsoccZv7xoZnZglxZsRIQwZ39vulT9La3XFfSu/H5uD0zJlci5yRaU3E8TGC1mMJnCxm+BwNKYv5RuUV0E7f9qd8GsFKTo09XESXcWOVYPUA6wIDAQAB
+        -----END PUBLIC KEY-----
+      audience: frameworkTest
+      resourceId: frameworkTest
+      ignoredEndpoints:
+        - /
+        - /actuator/**
+        - /v3/api-docs/**
+        - /swagger-ui/**
+        - /webjars/**
+        - /favicon.ico
+        - /h2-console/**
+  tracing:
+    enabled: false
