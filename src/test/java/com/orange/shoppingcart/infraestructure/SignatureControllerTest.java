@@ -1,6 +1,7 @@
 package com.orange.shoppingcart.infraestructure;
 
 import com.orange.openapi.api.model.Signature;
+import com.orange.openapiosp.boot.errorhandler.autoconfigure.ErrorHandlerAutoconfiguration;
 import com.orange.openapiosp.boot.errorhandler.exception.OpenApiBadRequestException;
 import com.orange.shoppingcart.signature.domain.model.SignatureDataInput;
 import com.orange.shoppingcart.signature.domain.model.SignatureTypes;
@@ -29,7 +30,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
-@SpringBootTest
+@SpringBootTest(classes = ErrorHandlerAutoconfiguration.class)
 public class SignatureControllerTest {
 
     @Mock
@@ -82,8 +83,6 @@ public class SignatureControllerTest {
     @ParameterizedTest
     @MethodSource("withInvalidValues")
     void getSignatureTypeAllowedGivenInvalidValuesThenReturnException(final String documentType, final List<String> commercialAct, final String nationality, final String segment) {
-        assertThrows(OpenApiBadRequestException.class, () -> {
-            signatureController.getSignatureTypeAllowed(documentType, commercialAct, nationality, segment);
-        });
+        assertThrows(OpenApiBadRequestException.class, () -> signatureController.getSignatureTypeAllowed(documentType, commercialAct, nationality, segment));
     }
 }

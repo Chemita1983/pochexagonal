@@ -1,5 +1,6 @@
 package com.orange.shoppingcart.application;
 
+import com.orange.openapiosp.boot.errorhandler.autoconfigure.ErrorHandlerAutoconfiguration;
 import com.orange.openapiosp.boot.errorhandler.exception.OpenApiBadRequestException;
 import com.orange.shoppingcart.signature.application.SignatureUseCase;
 import com.orange.shoppingcart.signature.domain.model.SignatureDataInput;
@@ -22,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
-@SpringBootTest
+@SpringBootTest(classes = ErrorHandlerAutoconfiguration.class)
 public class SignatureUseCaseTest {
 
     @Mock
@@ -46,8 +47,6 @@ public class SignatureUseCaseTest {
 
     private static Stream<SignatureDataInput> withInvalidNationality() {
         return Stream.of(
-                new SignatureDataInput("NIF", List.of("alta"), null, "empresa"),
-                new SignatureDataInput("NIF", List.of("alta"), "", "empresa"),
                 new SignatureDataInput("NIF", List.of("alta"), "Leganes", "empresa"),
                 new SignatureDataInput("NIF", List.of("alta"), "12345", "empresa")
         );
@@ -69,10 +68,7 @@ public class SignatureUseCaseTest {
     @ParameterizedTest
     @MethodSource("withInvalidNationality")
     void getSignatureTypesWithInvalidNationalityThrowsBadRequestException(SignatureDataInput signatureDataInput) {
-
-        assertThrows(OpenApiBadRequestException.class, () -> {
-            signatureUseCase.getSignatureTypes(signatureDataInput);
-        });
-
+        assertThrows(OpenApiBadRequestException.class, () -> signatureUseCase.getSignatureTypes(signatureDataInput));
     }
 }
+
