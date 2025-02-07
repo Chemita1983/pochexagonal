@@ -41,7 +41,19 @@ public class SignatureUseCaseTest {
                 new SignatureDataInput("NIF", List.of("alta"), "España", "autonomo"),
                 new SignatureDataInput("NIF", List.of("alta"), "España", "empresa"),
                 new SignatureDataInput("NIF", List.of("TODOS"), "España", "empresa"),
-                new SignatureDataInput("TODOS", List.of("TODOS"), "Francia", "TODOS")
+                new SignatureDataInput("TODOS", List.of("TODOS"), "Francia", "TODOS"),
+                new SignatureDataInput("CIF", List.of("alta"), "España", "residencial"),
+                new SignatureDataInput("TARJETA DE RESIDENCIA", List.of("alta"), "España", "residencial"),
+                new SignatureDataInput("PASAPORTE", List.of("alta"), "España", "residencial"),
+                new SignatureDataInput("OTHERS", List.of("alta"), "España", "residencial"),
+                new SignatureDataInput("NIF", List.of("alta", "renove"), "España", "empresa"),
+                new SignatureDataInput("NIF", List.of("alta", "renove", "migracion"), "España", "empresa"),
+                new SignatureDataInput("NIF", List.of("alta", "renove", "migracion", "cambiotarifa"), "España", "empresa"),
+                new SignatureDataInput("NIF", List.of("alta", "renove", "migracion", "cambiotarifa", "portabilidad"), "España", "empresa"),
+                new SignatureDataInput("NIF", List.of("modificacion"), "España", "empresa"),
+                new SignatureDataInput("NIF", List.of("alta"), "España", "autonomo"),
+                new SignatureDataInput("NIF", List.of("alta"), "España", "empresa"),
+                new SignatureDataInput("NIF", List.of("alta"), "España", "residencial")
         );
     }
 
