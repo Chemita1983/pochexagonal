@@ -1,9 +1,11 @@
 package com.orange.shoppingcart.signature.domain.ports.output;
 
+import com.orange.shoppingcart.signature.domain.model.Signature;
 import com.orange.shoppingcart.signature.domain.model.SignatureDataInput;
-import com.orange.shoppingcart.signature.domain.model.SignatureTypes;
+
+import java.util.List;
 
 public interface SignaturePort {
 
-    SignatureTypes getSignatureTypes(SignatureDataInput signatureDataInput);
+    List<Signature> getSignatureTypes(SignatureDataInput signatureDataInput);
 }

@@ -3,9 +3,8 @@ package com.orange.shoppingcart.infraestructure;
 import com.orange.openapi.api.model.Signature;
 import com.orange.openapiosp.boot.errorhandler.autoconfigure.ErrorHandlerAutoconfiguration;
 import com.orange.openapiosp.boot.errorhandler.exception.OpenApiBadRequestException;
-import com.orange.shoppingcart.signature.domain.model.SignatureDataInput;
+import com.orange.shoppingcart.signature.application.SignatureUseCasePort;
 import com.orange.shoppingcart.signature.domain.model.SignatureTypes;
-import com.orange.shoppingcart.signature.domain.ports.input.SignatureUseCasePort;
 import com.orange.shoppingcart.signature.infrastructure.api.SignatureController;
 import com.orange.shoppingcart.signature.infrastructure.mapper.SignatureMapper;
 import com.orange.shoppingcart.signature.infrastructure.mapper.SignatureMapperImpl;
@@ -27,6 +26,7 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
@@ -72,7 +72,7 @@ public class SignatureControllerTest {
     @MethodSource("withValidValues")
     void getSignatureTypeAllowedGivenValidValuesThenReturnOK(final String documentType, final List<String> commercialAct, final String nationality, final String segment) {
 
-        when(signatureUseCasePort.getSignatureTypes(any(SignatureDataInput.class))).thenReturn(new SignatureTypes(true, true));
+        when(signatureUseCasePort.getSignatureTypes(any(),any(),anyString(),anyString())).thenReturn(new SignatureTypes(true, true));
         ResponseEntity<Signature> signatureTypeAllowed = signatureController.getSignatureTypeAllowed(documentType, commercialAct, nationality, segment);
 
         Assertions.assertNotNull(signatureTypeAllowed.getBody());
@@ -83,6 +83,9 @@ public class SignatureControllerTest {
     @ParameterizedTest
     @MethodSource("withInvalidValues")
     void getSignatureTypeAllowedGivenInvalidValuesThenReturnException(final String documentType, final List<String> commercialAct, final String nationality, final String segment) {
+
+        when(signatureUseCasePort.getSignatureTypes(any(),any(),any(),any())).thenThrow(OpenApiBadRequestException.class);
+
         assertThrows(OpenApiBadRequestException.class, () -> signatureController.getSignatureTypeAllowed(documentType, commercialAct, nationality, segment));
     }
 }
