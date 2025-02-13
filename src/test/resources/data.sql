@@ -1,5 +1,6 @@
 INSERT INTO signature_criteria (nationality, commercialact, documenttype, segment) VALUES ('España', 'TODOS', 'NIF', 'residencial');
 INSERT INTO signature_criteria (nationality, commercialact, documenttype, segment) VALUES ('España', 'TODOS', 'NIF', 'autonomo');
+INSERT INTO signature_criteria (nationality, commercialact, documenttype, segment) VALUES ('España', 'TODOS', 'NIF', 'empresa');
 INSERT INTO signature_criteria (nationality, commercialact, documenttype, segment) VALUES ('Francia', 'TODOS', 'TODOS', 'TODOS');
 INSERT INTO signature_criteria (nationality, commercialact, documenttype, segment) VALUES ('Alemania', 'alta', 'NIF', 'autonomo');
 INSERT INTO signature_criteria (nationality, commercialact, documenttype, segment) VALUES ('Alemania', 'renove', 'NIF', 'autonomo');

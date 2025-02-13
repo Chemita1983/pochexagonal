@@ -52,7 +52,6 @@ public class SignatureITTest {
     @ParameterizedTest
     @ValueSource(strings = {
             "/signature/signatureTypeAllowed?documentType=PASAPORTE&commercialAct=TODOS&nationality=España&segment=residencial",
-            "/signature/signatureTypeAllowed?documentType=NIF&commercialAct=TODOS&nationality=España&segment=empresa",
             "/signature/signatureTypeAllowed?documentType=NIF&commercialAct=alta&commercialAct=migracion&nationality=Alemania&segment=residencial",
             "/signature/signatureTypeAllowed?documentType=NIF&commercialAct=TODOS&nationality=Alemania&segment=autonomo",
             "/signature/signatureTypeAllowed?documentType=NIF&commercialAct=alta&nationality=Andorra&segment=autonomo",
