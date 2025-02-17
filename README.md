@@ -1,2 +1,2 @@
 # shoppingcart
-Orange Signature Microservice
+H2 poc Hexagonal Microservice
